@@ -7,7 +7,6 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const auth_routes_1 = require("./routes/auth.routes");
 const data_routes_1 = require("./routes/data.routes");
-const slash_routes_1 = require("./routes/slash.routes");
 BigInt.prototype.toJSON = function () {
     return this.toString();
 };
@@ -24,7 +23,6 @@ app.get("/", (_req, res) => {
 });
 const a = "";
 /* APIs */
-app.use("/", slash_routes_1.slashRouter);
 app.use("/auth", auth_routes_1.authRouter);
 app.use("/data", data_routes_1.dataRouter);
 app.listen(3000, () => {
