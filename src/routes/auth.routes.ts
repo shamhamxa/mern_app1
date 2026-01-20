@@ -9,21 +9,21 @@ authRouter.post("/", async (req, res) => {
         const { username, password } = req.body;
 
         const user = await prisma.auth.create({
-            data: {
-                username,
-                password
-            }
+            data: { username, password },
         });
 
-        res.json({
-            ...user,
-            id: user.id.toString()
-        });
+        res.json(user);
     } catch (err) {
-        console.error("AUTH POST ERROR:", err);
+        console.error(err);
         res.status(500).json({ error: "Auth create failed" });
     }
 });
+
+authRouter.get("/", async (_req, res) => {
+    const users = await prisma.auth.findMany();
+    res.json(users);
+});
+
 
 
 /* READ */

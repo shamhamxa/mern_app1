@@ -3,9 +3,6 @@ import cors from "cors";
 import { authRouter } from "./routes/auth.routes";
 import { dataRouter } from "./routes/data.routes";
 
-(BigInt.prototype as any).toJSON = function () {
-    return this.toString();
-};
 
 const app = express();
 
