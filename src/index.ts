@@ -12,17 +12,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-/* ✅ HEALTH CHECK */
+/* ✅ ROOT ROUTE */
 app.get("/", (_req, res) => {
     res.json({
-        status: "ok",
-        service: "Scriptloop API",
+        status: "OK",
+        app: "Scriptloop API",
+        message: "Server is running 🚀"
     });
 });
 
+/* APIs */
 app.use("/auth", authRouter);
 app.use("/data", dataRouter);
 
 app.listen(3000, () => {
-    console.log("Server running on http://localhost:3000");
+    console.log("Server running on port 3000");
 });
