@@ -20,8 +20,9 @@ app.get("/", (_req, res) => {
         message: "Server is running 🚀"
     });
 });
-
+const a = "";
 /* APIs */
+
 app.use("/auth", authRouter);
 app.use("/data", dataRouter);
 
