@@ -7,9 +7,6 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const auth_routes_1 = require("./routes/auth.routes");
 const data_routes_1 = require("./routes/data.routes");
-BigInt.prototype.toJSON = function () {
-    return this.toString();
-};
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
