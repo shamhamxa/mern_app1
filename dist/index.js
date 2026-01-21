@@ -7,18 +7,31 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const auth_routes_1 = require("./routes/auth.routes");
 const data_routes_1 = require("./routes/data.routes");
+const prisma_1 = require("./db/prisma"); // ✅ move here
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-/* ✅ ROOT ROUTE */
-app.get("/", (_req, res) => {
-    res.json({
-        status: "OK",
-        app: "Scriptloop API",
-        message: "Server is running 🚀"
-    });
+/* ✅ ROOT ROUTE WITH DB CHECK */
+app.get("/", async (_req, res) => {
+    try {
+        await prisma_1.prisma.$queryRaw `SELECT 1`;
+        res.json({
+            status: "OK",
+            app: "Scriptloop API",
+            db: "CONNECTED ✅",
+            message: "Server and database are running 🚀",
+        });
+    }
+    catch (err) {
+        console.error("DB CONNECTION FAILED:", err);
+        res.status(200).json({
+            status: "PARTIAL",
+            app: "Scriptloop API",
+            db: "DISCONNECTED ❌",
+            message: "Server is running, database is not connected",
+        });
+    }
 });
-const a = "";
 /* APIs */
 app.use("/auth", auth_routes_1.authRouter);
 app.use("/data", data_routes_1.dataRouter);

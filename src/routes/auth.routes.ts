@@ -12,33 +12,28 @@ authRouter.post("/", async (req, res) => {
             data: { username, password },
         });
 
-        res.json(user);
-    } catch (err) {
-        console.error(err);
+        res.json({ ...user, id: user.id.toString() });
+    } catch (e) {
+        console.error("AUTH POST ERROR:", e);
         res.status(500).json({ error: "Auth create failed" });
     }
 });
-
-authRouter.get("/", async (_req, res) => {
-    const users = await prisma.auth.findMany();
-    res.json(users);
-});
-
-
 
 /* READ */
 authRouter.get("/", async (_req, res) => {
     try {
         const users = await prisma.auth.findMany();
+
         res.json(
+
             users.map(u => ({
                 ...u,
-                id: u.id.toString()
+                id: u.id.toString(),
             }))
         );
-    } catch (err) {
-        console.error("AUTH GET ERROR:", err);
-        res.status(500).json({ error: "Auth fetch failed" });
+
+    } catch (e) {
+        console.error("DB ERROR:", e);
+        res.status(500).json({ error: "Database connection failed" });
     }
 });
-
