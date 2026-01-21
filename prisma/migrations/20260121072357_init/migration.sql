@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "auth" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "username" TEXT,
     "password" TEXT,
 

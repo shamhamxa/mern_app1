@@ -7,7 +7,7 @@ datasource db {
 }
 
 model auth {
-  id       Int     @id @default(0)
+  id       Int     @id @default(autoincrement())
   username String?
   password String?
 }
