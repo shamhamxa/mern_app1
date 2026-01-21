@@ -8,35 +8,44 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+async function dbCheck() {
+    const result = await prisma.auth.findMany();
+    console.log('AUTH TABLE:', result);
+
+    const time = await prisma.$queryRaw`SELECT now()`;
+    console.log('DB TIME:', time);
+}
+
+dbCheck();
 
 /* ✅ ROOT ROUTE WITH DB CHECK */
-app.get("/", async (_req, res) => {
-    try {
-        const result = await prisma.auth.findMany();
-        console.log('AUTH RESULT:', result);
+// app.get("/", async (_req, res) => {
+//     try {
+//         const result = await prisma.auth.findMany();
+//         console.log('AUTH RESULT:', result);
 
-        const time = await prisma.$queryRaw`SELECT now()`;
-        console.log('DB TIME:', time);
+//         const time = await prisma.$queryRaw`SELECT now()`;
+//         console.log('DB TIME:', time);
 
-        await prisma.$queryRaw`SELECT 1`;
+//         await prisma.$queryRaw`SELECT 1`;
 
-        res.json({
-            status: "OK",
-            app: "Scriptloop API",
-            db: "CONNECTED ✅",
-            message: "Server and database are running 🚀",
-        });
-    } catch (err) {
-        console.error("DB CONNECTION FAILED:", err);
+//         res.json({
+//             status: "OK",
+//             app: "Scriptloop API",
+//             db: "CONNECTED ✅",
+//             message: "Server and database are running 🚀",
+//         });
+//     } catch (err) {
+//         console.error("DB CONNECTION FAILED:", err);
 
-        res.status(200).json({
-            status: "PARTIAL",
-            app: "Scriptloop API",
-            db: "DISCONNECTED ❌",
-            message: "Server is running, database is not connected",
-        });
-    }
-});
+//         res.status(200).json({
+//             status: "PARTIAL",
+//             app: "Scriptloop API",
+//             db: "DISCONNECTED ❌",
+//             message: "Server is running, database is not connected",
+//         });
+//     }
+// });
 
 /* APIs */
 app.use("/auth", authRouter);
