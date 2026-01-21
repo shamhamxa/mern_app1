@@ -12,6 +12,12 @@ app.use(express.json());
 /* ✅ ROOT ROUTE WITH DB CHECK */
 app.get("/", async (_req, res) => {
     try {
+        const result = await prisma.auth.findMany();
+        console.log('AUTH RESULT:', result);
+
+        const time = await prisma.$queryRaw`SELECT now()`;
+        console.log('DB TIME:', time);
+
         await prisma.$queryRaw`SELECT 1`;
 
         res.json({
