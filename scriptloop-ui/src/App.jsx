@@ -15,7 +15,8 @@ export default function App() {
   const [currentWallpaper, setCurrentWallpaper] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:3000/auth")
+    fetch(import.meta.env.VITE_API_URL + "/auth")
+
       // fetch("https://johnette-nonapplicatory-robena.ngrok-free.dev/auth")
       .then(res => res.json())
       .then(data => {
