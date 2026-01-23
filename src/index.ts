@@ -61,5 +61,8 @@ async function startServer() {
     }
 }
 
+console.log("DATABASE_URL at runtime:", process.env.DATABASE_URL);
+
+
 startServer();
 

@@ -40,12 +40,18 @@ app.get("/", async (_req, res) => {
 app.use("/auth", auth_routes_1.authRouter);
 app.use("/data", data_routes_1.dataRouter);
 const PORT = Number(process.env.PORT) || 3000;
-const server = app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
-server.on("error", (err) => {
-    if (err.code === "EADDRINUSE") {
-        console.error(`Port ${PORT} already in use`);
+async function startServer() {
+    try {
+        await prisma_1.prisma.$connect();
+        console.log("✅ Prisma connected");
+        app.listen(PORT, () => {
+            console.log(`🚀 Server running on port ${PORT}`);
+        });
+    }
+    catch (err) {
+        console.error("❌ Failed to start server:");
+        console.error(err);
         process.exit(1);
     }
-});
+}
+startServer();
