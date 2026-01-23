@@ -39,6 +39,7 @@ app.get("/", async (_req, res) => {
 /* APIs */
 app.use("/auth", auth_routes_1.authRouter);
 app.use("/data", data_routes_1.dataRouter);
-app.listen(3000, () => {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
     console.log("Server running on port 3000");
 });

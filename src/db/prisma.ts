@@ -33,3 +33,12 @@ process.on("SIGINT", async () => {
     await pool.end();
     process.exit(0);
 });
+
+const shutdown = async () => {
+    await prisma.$disconnect();
+    await pool.end();
+    process.exit(0);
+};
+
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);
