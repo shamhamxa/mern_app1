@@ -39,7 +39,13 @@ app.get("/", async (_req, res) => {
 /* APIs */
 app.use("/auth", auth_routes_1.authRouter);
 app.use("/data", data_routes_1.dataRouter);
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log("Server running on port 3000");
+const PORT = Number(process.env.PORT) || 3000;
+const server = app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+server.on("error", (err) => {
+    if (err.code === "EADDRINUSE") {
+        console.error(`Port ${PORT} already in use`);
+        process.exit(1);
+    }
 });
