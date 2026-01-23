@@ -14,3 +14,12 @@ pool.query('SELECT 1')
   .finally(() => process.exit());
 "
 > > > > > > > > > > ✅ DATABASE CONNECTED -->
+
+<!-- 
+
+node -e "
+fetch('http://localhost:3000')
+  .then(r => r.text())
+  .then(console.log)
+  .catch(console.error)
+" -->
