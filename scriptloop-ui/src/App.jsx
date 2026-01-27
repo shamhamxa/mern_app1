@@ -6,8 +6,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_API_URL + "/")
-
+    fetch(`${import.meta.env.VITE_API_URL}/auth`)
       // fetch("http://localhost:3000/auth")
       .then(res => res.json())
       .then(data => {
